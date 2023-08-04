@@ -1,49 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject, BehaviorSubject, timer, Observable } from 'rxjs';
-import { filter, takeUntil, switchMap, startWith, scan, map, take } from 'rxjs/operators';
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-box',
   templateUrl: './box.component.html',
 })
-export class BoxComponent implements OnInit {
-  toggle$ = new BehaviorSubject<boolean>(false);
-  countdown$!: Observable<number>;
-  countdownValue = 4;
-  buttonText = "Start";  
+export class BoxComponent {
+  initialCountdownValue: number = 4;
+  countdown: number = this.initialCountdownValue;
+  intervalId: any;
+  playPauseButtonText: string = 'Start';
+  stopResetButtonText: string = 'Stop';
 
-
-  ngOnInit() {
-    this.countdown$ = this.toggle$.pipe(
-      switchMap(isPlaying => isPlaying ? timer(0, 1000) : []),
-      map(() => -1),
-      startWith(this.countdownValue),
-      scan((acc, curr) => {
-        const newValue = acc + curr;
-        if (newValue < 0) {
-          this.buttonText = "Start";
-          this.toggle$.next(false);
-          return this.countdownValue;
-        } else {
-          return newValue;
+  playPause() {
+    if (this.playPauseButtonText === 'Start' || this.playPauseButtonText === 'Resume') {
+      this.playPauseButtonText = 'Pause';
+      this.intervalId = setInterval(() => {
+        this.countdown -= 1;
+        if (this.countdown < 0) {
+          this.countdown = this.initialCountdownValue;
         }
-      }),
-    );
+      }, 1000);
+    } else {
+      this.playPauseButtonText = 'Resume';
+      clearInterval(this.intervalId);
+    }
   }
 
-  onToggle() {
-    this.toggle$.next(!this.toggle$.value);
-    switch(this.buttonText) {
-      case "Start":
-        this.buttonText = "Pause";
-        break;
-      case "Pause":
-        this.buttonText = "Resume";
-        break;
-      case "Resume":
-        this.buttonText = "Pause";
-        break;
+  stopReset() {
+    if (this.stopResetButtonText === 'Stop') {
+      this.stopResetButtonText = 'Reset';
+      clearInterval(this.intervalId);
+      this.playPauseButtonText = 'Start';
+    } else {
+      this.stopResetButtonText = 'Stop';
+      this.countdown = this.initialCountdownValue;
     }
   }
 }

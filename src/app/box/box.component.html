@@ -1,10 +1,12 @@
 <div class="h-screen w-screen bg-zinc-900">
     <div class="flex flex-col justify-center items-center h-screen text-zinc-100">
 
-        <button (click)="onToggle()"
-        class="text-7xl text-zinc-700">{{buttonText}}</button>
+        <div class="flex gap-20">
+            <button class="text-7xl text-zinc-700" (click)="playPause()">{{playPauseButtonText}}</button>
 
+            <button class="text-7xl text-zinc-700" (click)="stopReset()">{{stopResetButtonText}}</button>
+        </div>
    
-        <span class="text-5xl text-zinc-400">{{ countdown$ | async }}</span>
+        <span class="text-5xl text-zinc-400">{{ countdown }}</span>
     </div>
 </div>
