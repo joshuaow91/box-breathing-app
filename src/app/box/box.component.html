@@ -8,5 +8,6 @@
         </div>
    
         <span class="text-5xl text-zinc-400">{{ countdown }}</span>
+        <span  *ngIf="playPauseButtonText === 'Pause' || playPauseButtonText === 'Resume'" class="text-9xl text-zinc-200">{{phase}}</span>
     </div>
 </div>
