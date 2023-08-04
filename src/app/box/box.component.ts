@@ -13,10 +13,13 @@ export class BoxComponent {
   phase: string = 'Inhale';
   phaseIndex: number = 0;
   phases: string[] = ['Inhale', 'Hold', 'Exhale', 'Hold'];
+  isReset: boolean = false; 
 
   playPause() {
     if (this.playPauseButtonText === 'Start' || this.playPauseButtonText === 'Resume') {
       this.playPauseButtonText = 'Pause';
+      this.stopResetButtonText = 'Stop';
+      this.isReset = false; 
       this.intervalId = setInterval(() => {
         this.countdown -= 1;
         if (this.countdown < 0) {
@@ -41,6 +44,7 @@ export class BoxComponent {
       this.countdown = this.initialCountdownValue;
       this.phase = 'Inhale';
       this.phaseIndex = 0;
+      this.isReset = true; 
     }
   }
 }
