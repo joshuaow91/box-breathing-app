@@ -1,3 +1,7 @@
+
+![box breathing](https://github.com/joshuaow91/box-breathing-app/assets/113389785/b2ad73cd-819d-4431-b073-b27bed8fe0f1)
+
+
 # BoxBreathingApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
